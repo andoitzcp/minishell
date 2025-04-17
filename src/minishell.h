@@ -50,6 +50,7 @@ typedef struct s_tree
 	char          **paths;
 	struct s_tree *left;
 	struct s_tree *right;
+	struct s_tree *down;
 }	t_tree;
 
 // Token binary tree struct
@@ -83,18 +84,19 @@ void print_tokens_forward(t_token *tokens);
 
 // Parser
 void buildtreestruct(t_md *md);
+void recompose_tree(t_md *md);
 t_tree *buildtreenode(t_token *token, t_md *md);
 char **buildcommand(t_token *t, int words);
 
 // Exec
 void childproc(t_tree *tree, t_md *md);
-void ft_parentproc(t_tree *tree, t_md *md);
-void ft_execcmd(t_md *md);
-void ft_rightredir(t_tree *t, int fd[2][2], char **env);
-void ft_leftredir(t_tree *t, t_md *md);
+void parentproc(t_tree *tree, t_md *md);
+void execcmd(t_md *md);
+void rightredir(t_tree *t, int fd[2][2], char **env);
+void leftredir(t_tree *t, t_md *md);
 
 // Init
-t_md	*ft_initmetadata(void);
+t_md	*initmetadata(void);
 int		**initfdarray(void);
 void	cleanup(t_md *metad);
 void	exitwithmallocerror(t_md *md);
@@ -133,14 +135,14 @@ char	*expand_var(char **env, char *var);
 
 char **ardup(char **array);
 
-char	*ft_findbin(char *bin);
+char	*findbin(char *bin);
 
 char	*get_prompt(t_md md);
 
 // Tree linked list utils
 void freetreenode(t_tree *n);
 void freetree(t_tree **head);
-void ft_deletetreenode(t_tree *n, t_tree **head);
+void deletetreenode(t_tree *n, t_tree **head);
 char **tokensto2parray(t_token *tok, t_md *md);
 void printtree(t_tree *tree);
 void printtreeinerror(t_tree *tree);
@@ -151,11 +153,10 @@ int is_lredir(t_token *token);
 int is_rredir(t_token *token);
 int is_pipe(t_token *token);
 
-
 int	is_redir_in(t_token *token);
 int	is_redir_hdoc(t_token *token);
 int	is_redir_out(t_token *token);
 int	is_redir_append(t_token *token);
 
-void handle_redir_in(t_tree *node, t_md *md);
+void handle_redirs(t_tree *node);
 #endif

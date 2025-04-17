@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 	t_md	*md; 
 	char	*input; 
 
-	md = ft_initmetadata(); 
+	md = initmetadata(); 
 	if (argc == 1)
 	{
 		while (1) 
@@ -37,9 +37,10 @@ int main(int argc, char **argv)
 				add_history(input);
 				*(md->tok) = tokenize(input); 
 				// print_tokens_forward(*(md->tok)); 
-				buildtreestruct(md); 
+				buildtreestruct(md);
+				recompose_tree(md);
 				// printtree(*(md->tree));
-				ft_execcmd(md);
+				execcmd(md);
 				// cleanup(md);
 				// md = ft_initmetadata();
 			}
@@ -58,7 +59,7 @@ int main(int argc, char **argv)
 		// print_tokens_forward(*(md->tok)); 
 		buildtreestruct(md); 
 		// printtree(*(md->tree));
-		ft_execcmd(md);
+		execcmd(md);
 		// cleanup(md);
 		// md = ft_initmetadata();
 	}

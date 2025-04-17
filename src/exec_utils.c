@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-char	*ft_findbin(char *bin)
+char	*findbin(char *bin)
 {
 	char	*path;
 	char	**paths;
@@ -42,9 +42,9 @@ char	*ft_findbin(char *bin)
 //
 // int	main()
 // {
-// 	printf("Ejecutable: %s\n", ft_findbin("./a.out"));
-// 	printf("Ejecutable: %s\n", ft_findbin("../minishell"));
-// 	printf("Ejecutable: %s\n", ft_findbin("/pwd"));
-// 	printf("Ejecutable: %s\n", ft_findbin("/vim"));
-// 	printf("Ejecutable: %s\n", ft_findbin("/nada"));
+// 	printf("Ejecutable: %s\n", findbin("./a.out"));
+// 	printf("Ejecutable: %s\n", findbin("../minishell"));
+// 	printf("Ejecutable: %s\n", findbin("/pwd"));
+// 	printf("Ejecutable: %s\n", findbin("/vim"));
+// 	printf("Ejecutable: %s\n", findbin("/nada"));
 // }

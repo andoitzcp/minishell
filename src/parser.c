@@ -35,6 +35,7 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 	token->right = NULL;
 	node->args = tokensto2parray(node->tok, md);
 	node->left = NULL;
+	node->down = NULL;
 	node->right = NULL;
 	return (node);
 }
@@ -47,7 +48,6 @@ void recompose_tree(t_md *md)
 {
 	t_tree *node;
 	t_tree *p;
-	t_tree *t;
 
 	node = *(md->tree);
 	while (node)
@@ -60,9 +60,9 @@ void recompose_tree(t_md *md)
 				p = p->right;
 				continue ;
 			}
-			if (node->left != NULL)
-				freetree(node->left);
-			node->left = p;
+			if (node->down != NULL)
+				freetree(&(node->down));
+			node->down = p;
 			node->right = p->right->right;
 			p->right->right = NULL;
 			p = node;

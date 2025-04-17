@@ -15,6 +15,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+void execute_builtin(char **args, t_md *md);
+int is_builtin(char *cmd);
+
 void	childproc(t_tree *tree, t_md *md)
 {
 	char	**cmd;
@@ -29,44 +32,32 @@ void	childproc(t_tree *tree, t_md *md)
 	next = tree->right;
 	program = *cmd;
 	if (**cmd != '/' && **cmd != '.')
-		program = ft_findbin(*cmd);
+		program = findbin(*cmd);
+	if (tree->down)
+		handle_redirs(tree->down);
 	if (fd[IPIPE][RDEND] != -1)
 	{
 		dup2(fd[IPIPE][RDEND], STDIN_FILENO);
 		close(fd[IPIPE][RDEND]);
 	}
 	if (next)
-	{
-		if (is_redir_in(next->tok))
-			tree = handle_redir_in(tree, md);
-		}
-		else if (is_pipe(next->tok))
-		{
-			//fprintf(stderr, "flag12\n");
-			dup2(fd[OPIPE][WREND], STDOUT_FILENO);
-		}
-		else if (is_rredir(next->tok))
-		{
-			//fprintf(stderr, "flag13\n");
-			return ;
-			/* ft_rightredir(md); */
-		}
-	}
-	//fprintf(stderr, "flag14\n");
+		dup2(fd[OPIPE][WREND], STDOUT_FILENO);
 	close(fd[OPIPE][RDEND]);
-	if (execve(program, cmd, md->env) == -1)
+	if (is_builtin(tree->args[0]))
+		execute_builtin(tree->args, md);
+	else if (execve(program, cmd, md->env) == -1)
 	{
 		ft_putstr_fd("Command not found\n", 2);
 	}
 	close(fd[OPIPE][WREND]);
 }
 
-void	ft_parentproc(t_tree *tree, t_md *md)
+void	parentproc(t_tree *tree, t_md *md)
 {
 	pid_t	pid;
 	int		status;
 
-	if (is_pipe(tree->right))
+	if (tree && tree->right && is_pipe(tree->right->tok))
 	{
 		if (pipe(md->fd[OPIPE]) == -1)
 			cleanup(md);
@@ -78,30 +69,21 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 	if (pid == 0)
 	{
 		sig_default();
-		//fprintf(stderr, "flag04\n");
-		//printtreeinerror(tree);
 		childproc(tree, md);
 	}
-	//printf("flag05\n");
 	md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
 	md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
 	close(md->fd[IPIPE][WREND]);
-	// Guardo el codigo de salida
 	waitpid(pid, &status, 0);
-	// printf("Status: %i\n", status);
 	if (WIFEXITED(status))
-	{
 		md->exit_code = WEXITSTATUS(status);
-		// printf("Exit code %i\n", md->exit_code);
-	}
 	else if (WIFSIGNALED(status))
-	{
 		md->exit_code = 128 + WTERMSIG(status);
-		// printf("Exit code %i\n", md->exit_code);
-	}
 	else
 		md->exit_code = 1; // valor por defecto si nada aplica
 }
+
+// REVISAR
 
 int is_builtin(char *cmd)
 {
@@ -134,19 +116,36 @@ void execute_builtin(char **args, t_md *md)
 
 
 
-void	ft_execcmd(t_md *md)
+void	execcmd(t_md *md)
 {
-	t_tree *n;
+	t_tree	*tree;
 
-	md->nodeact = *(md->tree);
-	n = md->nodeact;
-	while (is_lredir(n->right->tok) || is_rredir(n->right->tok))
+	tree = *(md->tree);
+	while (tree)
 	{
-
-
+		if (tree->type == TREE_CMD)
+		{
+			//fprintf(stderr, "this is stderror\n");
+			/* printtree(tree); */
+			//if (is_builtin(tree->args[0]))
+				//execute_builtin(tree->args, md);
+			parentproc(tree, md);
+			// Buscar como implementar builtins sin forkear
+		}
+		tree = tree->right;
 	}
 
+	/* t_tree *n; */
 
-	while (md->nodeact)
-		ft_parentproc(md->nodeact, md);
+	/* md->nodeact = *(md->tree); */
+	/* n = md->nodeact; */
+	/* while (is_lredir(n->right->tok) || is_rredir(n->right->tok)) */
+	/* { */
+
+
+	/* } */
+
+
+	/* while (md->nodeact) */
+	/* 	parentproc(md->nodeact, md); */
 }

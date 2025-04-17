@@ -15,7 +15,7 @@
 void	freetreenode(t_tree *n)
 {
 	if (n->args != NULL)
-		free2parray(n->args);
+		ft_free2parray(n->args);
 	n->args = NULL;
 	return ;
 }
@@ -108,6 +108,12 @@ void	printtree(t_tree *tree)
 			args++;
 		}
 		printf("\n");
+		if (t->down)
+		{
+			printf("START: printing down node\n");
+			printtree(t->down);
+			printf("FINISH: printing down node\n");
+		}
 		t = t->right;
 	}
 }
