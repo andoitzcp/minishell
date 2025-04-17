@@ -23,7 +23,7 @@ char	*get_prompt(t_md md)
 		free (md.prompt);
 	cur_dir = getcwd(NULL, 0);
 	cur_dir = ft_strjoin(cur_dir, "\n>");
-	user = ft_expand_var(md.env, "$USER");
+	user = expand_var(md.env, "$USER");
 	home_dir = ft_strjoin("/home/", user);
 	if (ft_strncmp(home_dir, cur_dir, ft_strlen(home_dir)) == 0)
 	{

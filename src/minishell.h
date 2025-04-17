@@ -87,7 +87,7 @@ t_tree *buildtreenode(t_token *token, t_md *md);
 char **buildcommand(t_token *t, int words);
 
 // Exec
-void ft_childproc(t_tree *tree, t_md *md);
+void childproc(t_tree *tree, t_md *md);
 void ft_parentproc(t_tree *tree, t_md *md);
 void ft_execcmd(t_md *md);
 void ft_rightredir(t_tree *t, int fd[2][2], char **env);
@@ -96,8 +96,8 @@ void ft_leftredir(t_tree *t, t_md *md);
 // Init
 t_md	*ft_initmetadata(void);
 int		**initfdarray(void);
-void	ft_cleanup(t_md *metad);
-void	ft_exitwithmallocerror(t_md *md);
+void	cleanup(t_md *metad);
+void	exitwithmallocerror(t_md *md);
 
 // Signals
 void	sig_init();
@@ -106,44 +106,44 @@ void	sig_default(void);
 void	sig_reset(void);
 
 // Builtins
-int	ft_echo(char **args);
-int	ft_pwd(char **args);
-int	ft_cd(char **args);
-int	ft_env(char **env);
+int	echo(char **args);
+int	pwd(char **args);
+int	cd(char **args);
+int	env(char **env);
 int	ft_export(char ***env_ptr, char **args);
-int	ft_unset(char ***env_ptr, char **args);
+int	unset(char ***env_ptr, char **args);
 
-void	ft_exit(t_md *md);
+void	clean_exit(t_md *md);
 
 // Utils
-size_t	ft_indexof(char *str, char c);
+size_t	indexof(char *str, char c);
 int		is_special_char(char c);
 int		count_quoted_chars(char *input);
 int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_artostr(char **ar);
+char	*artostr(char **ar);
 
-char	**ft_arremove(char **array, size_t del);
-char	**ft_arcat(char **array, char *ptr);
-size_t	ft_arlen(char **array);
-void	ft_arprint(char **array);
-void	ft_arfree(char **array);
+char	**arremove(char **array, size_t del);
+char	**arcat(char **array, char *ptr);
+size_t	arlen(char **array);
+void	arprint(char **array);
+void	arfree(char **array);
 
-size_t	ft_envfind(char **env, char *var);
-char	*ft_expand_var(char **env, char *var);
+size_t	envfind(char **env, char *var);
+char	*expand_var(char **env, char *var);
 
-char **ft_dup2parray(char **array);
+char **ardup(char **array);
 
 char	*ft_findbin(char *bin);
 
 char	*get_prompt(t_md md);
 
 // Tree linked list utils
-void ft_freetreenode(t_tree *n);
-void ft_freetree(t_tree **head);
+void freetreenode(t_tree *n);
+void freetree(t_tree **head);
 void ft_deletetreenode(t_tree *n, t_tree **head);
-char **ft_tokensto2parray(t_token *tok, t_md *md);
-void ft_printtree(t_tree *tree);
-void ft_printtreeinerror(t_tree *tree);
+char **tokensto2parray(t_token *tok, t_md *md);
+void printtree(t_tree *tree);
+void printtreeinerror(t_tree *tree);
 
 // Redir types helpers
 int is_redir(t_token *token);

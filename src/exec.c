@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	ft_childproc(t_tree *tree, t_md *md)
+void	childproc(t_tree *tree, t_md *md)
 {
 	char	**cmd;
 	int		**fd;
@@ -27,7 +27,7 @@ void	ft_childproc(t_tree *tree, t_md *md)
 	fd = md->fd;
 	cmd = tree->args;
 	next = tree->right;
-program = *cmd;
+	program = *cmd;
 	if (**cmd != '/' && **cmd != '.')
 		program = ft_findbin(*cmd);
 	if (fd[IPIPE][RDEND] != -1)
@@ -69,18 +69,18 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 	if (is_pipe(tree->right))
 	{
 		if (pipe(md->fd[OPIPE]) == -1)
-			ft_cleanup(md);
+			cleanup(md);
 	}
 	pid = fork();
 	sig_ignore();
 	if (pid == -1)
-		ft_cleanup(md);
+		cleanup(md);
 	if (pid == 0)
 	{
 		sig_default();
 		//fprintf(stderr, "flag04\n");
-		//ft_printtreeinerror(tree);
-		ft_childproc(tree, md);
+		//printtreeinerror(tree);
+		childproc(tree, md);
 	}
 	//printf("flag05\n");
 	md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
@@ -103,8 +103,6 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 		md->exit_code = 1; // valor por defecto si nada aplica
 }
 
-// REVISAR
-
 int is_builtin(char *cmd)
 {
     return (!ft_strcmp(cmd, "cd") || 
@@ -119,19 +117,19 @@ int is_builtin(char *cmd)
 void execute_builtin(char **args, t_md *md)
 {
 	if (!ft_strcmp(args[0], "cd"))
-		md->exit_code = ft_cd(args);
+		md->exit_code = cd(args);
 	else if (!ft_strcmp(args[0], "export"))
 		md->exit_code = ft_export(&md->env, args);
 	else if (!ft_strcmp(args[0], "unset"))
-		md->exit_code = ft_unset(&md->env, args);
+		md->exit_code = unset(&md->env, args);
 	else if (!ft_strcmp(args[0], "env"))
-		md->exit_code = ft_env(md->env);
+		md->exit_code = env(md->env);
 	else if (!ft_strcmp(args[0], "exit"))
-		ft_exit(md);
+		clean_exit(md);
 	else if (!ft_strcmp(args[0], "echo"))
-		md->exit_code = ft_echo(args);
+		md->exit_code = echo(args);
 	else if (!ft_strcmp(args[0], "pwd"))
-		md->exit_code = ft_pwd(args);
+		md->exit_code = pwd(args);
 }
 
 

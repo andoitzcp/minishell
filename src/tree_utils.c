@@ -12,15 +12,15 @@
 
 #include "minishell.h"
 
-void	ft_freetreenode(t_tree *n)
+void	freetreenode(t_tree *n)
 {
 	if (n->args != NULL)
-		ft_free2parray(n->args);
+		free2parray(n->args);
 	n->args = NULL;
 	return ;
 }
 
-void	ft_freetree(t_tree **head)
+void	freetree(t_tree **head)
 {
 	t_tree	*cur;
 	t_tree	*tmp;
@@ -30,13 +30,13 @@ void	ft_freetree(t_tree **head)
 	{
 		tmp = cur;
 		cur = cur->right;
-		ft_freetreenode(tmp);
+		freetreenode(tmp);
 	}
 	head = NULL;
 	return ;
 }
 
-void	ft_deletetreenode(t_tree *n, t_tree **head)
+void	deletetreenode(t_tree *n, t_tree **head)
 {
 	t_tree	*cur;
 	t_tree	*tmp;
@@ -45,12 +45,12 @@ void	ft_deletetreenode(t_tree *n, t_tree **head)
 	while (cur->right != n)
 		cur = cur->right;
 	tmp = n->right;
-	ft_freetreenode(n);
+	freetreenode(n);
 	cur->right = tmp;
 	return ;
 }
 
-char	**ft_tokensto2parray(t_token *tok, t_md *md)
+char	**tokensto2parray(t_token *tok, t_md *md)
 {
 	t_token	*cur;
 	int		i;
@@ -67,7 +67,7 @@ char	**ft_tokensto2parray(t_token *tok, t_md *md)
 	}
 	arr = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (arr == NULL)
-		ft_exitwithmallocerror(md);
+		exitwithmallocerror(md);
 	cur = tok;
 	i = 0;
 	while (cur)
@@ -78,7 +78,7 @@ char	**ft_tokensto2parray(t_token *tok, t_md *md)
 			else
 				arr[i] = cur->value;
 		else
-			arr[i] = ft_expand_var(md->env, cur->value);
+			arr[i] = expand_var(md->env, cur->value);
 		// printf("tokensto2parray: %s\n", arr[i]);
 		cur = cur->right;
 		i++;
@@ -86,7 +86,7 @@ char	**ft_tokensto2parray(t_token *tok, t_md *md)
 	return (arr);
 }
 
-void	ft_printtree(t_tree *tree)
+void	printtree(t_tree *tree)
 {
 	t_tree	*t;
 	char	**args;
@@ -112,7 +112,7 @@ void	ft_printtree(t_tree *tree)
 	}
 }
 
-void	ft_printtreeinerror(t_tree *tree)
+void	printtreeinerror(t_tree *tree)
 {
 	t_tree	*t;
 	char	**args;

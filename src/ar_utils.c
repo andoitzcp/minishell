@@ -12,14 +12,15 @@
 
 #include "minishell.h"
 
-char	**ft_arremove(char **array, size_t del)
+// Removes char* at del position from a char** array
+char	**arremove(char **array, size_t del)
 {
 	char	**new_array;
 	size_t	len;
 	size_t	i;
 	size_t	j;
 
-	len = ft_arlen(array);
+	len = arlen(array);
 	if (del >= len)
 		return (array);
 	new_array = ft_calloc(len, sizeof(char *));
@@ -37,13 +38,14 @@ char	**ft_arremove(char **array, size_t del)
 	return (new_array);
 }
 
-char	**ft_arcat(char **array, char *str)
+// Concatenates a char* at the end of a char** array
+char	**arcat(char **array, char *str)
 {
 	char	**new_array;
 	size_t	len;
 	size_t	i;
 
-	len = ft_arlen(array);
+	len = arlen(array);
 	new_array = ft_calloc(len + 2, sizeof(char *));
 	i = 0;
 	while (i < len)
@@ -58,7 +60,8 @@ char	**ft_arcat(char **array, char *str)
 	return (new_array);
 }
 
-size_t	ft_arlen(char **array)
+// Returns the length of a char** array
+size_t	arlen(char **array)
 {
 	size_t	i;
 
@@ -70,7 +73,8 @@ size_t	ft_arlen(char **array)
 	return (i);
 }
 
-void	ft_arprint(char **array)
+// Prints a char** array
+void	arprint(char **array)
 {
 	size_t	i;
 
@@ -86,7 +90,8 @@ void	ft_arprint(char **array)
 	printf("}\n");
 }
 
-void	ft_arfree(char **array)
+// Frees a char** array
+void	arfree(char **array)
 {
 	size_t	i;
 

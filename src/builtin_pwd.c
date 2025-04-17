@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_pwd(char **args)
+int	pwd(char **args)
 {
 	char	*current_dir;
 
@@ -32,21 +32,21 @@ int	ft_pwd(char **args)
 // 	char *args[3];
 // 
 // 	printf("--TEST 1--\n");
-// 	ft_pwd(NULL);
+// 	pwd(NULL);
 // 
 // 	printf("--TEST 2--\n");
 // 	args[0] = NULL;
-// 	ft_pwd(args);
+// 	pwd(args);
 // 
 // 	printf("--TEST 3--\n");
 // 	args[0] = "pwd";
 // 	args[1] = NULL;
-// 	ft_pwd(args);
+// 	pwd(args);
 // 
 // 	printf("--TEST 4--\n");
 // 	args[0] = "pwd";
 // 	args[1] = ".";
 // 	args[2] = NULL;
-// 	ft_pwd(args);
+// 	pwd(args);
 // 
 // }

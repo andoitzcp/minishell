@@ -30,7 +30,7 @@ WHITE = \033[0;97m
 # signals
 
 SRC_FILES	=	minishell init signals\
-				tokenizer2 token_utils \
+				tokenizer token_utils \
 				parser redir_types \
 				str_utils ar_utils \
 				tree_utils \

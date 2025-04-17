@@ -12,7 +12,8 @@
 
 #include "minishell.h"
 
-size_t	ft_envfind(char **env, char *str)
+// Returns the index to the first element of env array whose name matches str
+size_t	envfind(char **env, char *str)
 {
 	size_t	str_len;
 	size_t	name_len;
@@ -24,7 +25,7 @@ size_t	ft_envfind(char **env, char *str)
 	while (env[i])
 	{
 		str_len = ft_strlen(str);
-		name_len = ft_indexof(env[i], '=');
+		name_len = indexof(env[i], '=');
 		if (str_len == name_len && ft_strncmp(str, env[i], name_len) == 0)
 			return (i);
 		i++;
@@ -32,7 +33,8 @@ size_t	ft_envfind(char **env, char *str)
 	return (i);
 }
 
-char	*ft_expand_var(char **env, char *var)
+// Returns the value of var in env array
+char	*expand_var(char **env, char *var)
 {
 	size_t	i;
 	char	*value;
@@ -40,21 +42,22 @@ char	*ft_expand_var(char **env, char *var)
 	if (!env || !var || !*var || !var[1])
 		return (NULL);
 	var++;
-	i = ft_envfind(env, var);
+	i = envfind(env, var);
 	if (!env[i])
 		return (NULL);
 	value = ft_strchr(env[i], '=');
 	return (++value);
 }
 
-char	**ft_dup2parray(char **array)
+// Duplicates a char** array
+char	**ardup(char **array)
 {
 	int		i;
 	char	**p;
 
 	if (!array)
 		return (NULL);
-	p = ft_calloc(ft_arlen(array) + 1, sizeof(char *));
+	p = ft_calloc(arlen(array) + 1, sizeof(char *));
 	i = 0;
 	while (array[i])
 	{
@@ -72,22 +75,22 @@ char	**ft_dup2parray(char **array)
 // 	char	*var = "$Var1";
 //
 // 	printf("\n--Test 1--\n");
-// 	printf("%p\n", ft_expand_var(NULL, var));
+// 	printf("%p\n", expand_var(NULL, var));
 //
 // 	printf("\n--Test 2--\n");
 // 	env = ft_calloc(10, sizeof(char *));
 // 	env[0] = ft_strdup("Var1=Value1");
 // 	env[1] = NULL;
-// 	printf("%p\n", ft_expand_var(env, NULL));
-// 	ft_arfree(env);
+// 	printf("%p\n", expand_var(env, NULL));
+// 	arfree(env);
 //
 // 	printf("\n--Test 3--\n");
 // 	env = ft_calloc(10, sizeof(char *));
 // 	env[0] = ft_strdup("Var1=Value1");
 // 	env[1] = NULL;
 // 	var = "";
-// 	printf("%p\n", ft_expand_var(env, var));
-// 	ft_arfree(env);
+// 	printf("%p\n", expand_var(env, var));
+// 	arfree(env);
 //
 // 	printf("\n--Test 4--\n");
 // 	env = ft_calloc(10, sizeof(char *));
@@ -95,8 +98,8 @@ char	**ft_dup2parray(char **array)
 // 	env[1] = ft_strdup("Var2=Value2");
 // 	env[2] = NULL;
 // 	var = "$";
-// 	printf("%p\n", ft_expand_var(env, var));
-// 	ft_arfree(env);
+// 	printf("%p\n", expand_var(env, var));
+// 	arfree(env);
 //
 // 	printf("\n--Test 5--\n");
 // 	env = ft_calloc(10, sizeof(char *));
@@ -106,8 +109,8 @@ char	**ft_dup2parray(char **array)
 // 	env[3] = ft_strdup("Var4=Value4");
 // 	env[4] = NULL;
 // 	var = "$Var3";
-// 	printf("%s\n", ft_expand_var(env, var));
-// 	ft_arfree(env);
+// 	printf("%s\n", expand_var(env, var));
+// 	arfree(env);
 // 	
 // 	printf("\n--Test 6--\n");
 // 	env = ft_calloc(10, sizeof(char *));
@@ -117,7 +120,7 @@ char	**ft_dup2parray(char **array)
 // 	env[3] = ft_strdup("Var4=Value4");
 // 	env[4] = NULL;
 // 	var = "Var3";
-// 	printf("%p\n", ft_expand_var(env, var));
-// 	ft_arfree(env);
+// 	printf("%p\n", expand_var(env, var));
+// 	arfree(env);
 // }
 //

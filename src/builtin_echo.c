@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_echo(char **args)
+int	echo(char **args)
 {
 	int		i;
 	int		flag;
@@ -48,7 +48,7 @@ int	ft_echo(char **args)
 /*     printf("===TEST 1===\n"); */
 /*     printf("EXPECTED: hola mundo\n"); */
 /*     printf("ACTUAL: "); */
-/*     ft_echo(&node); */
+/*     echo(&node); */
 /*     printf("\n"); */
 /*     free(s); */
 
@@ -57,7 +57,7 @@ int	ft_echo(char **args)
 /*     printf("===TEST 2===\n"); */
 /*     printf("EXPECTED: hola mundo\n\n"); */
 /*     printf("ACTUAL: "); */
-/*     ft_echo(&node); */
+/*     echo(&node); */
 /*     printf("\n"); */
 /*     free(s); */
 
@@ -66,7 +66,7 @@ int	ft_echo(char **args)
 /*     printf("===TEST 3===\n"); */
 /*     printf("EXPECTED:\n\n"); */
 /*     printf("ACTUAL:"); */
-/*     ft_echo(&node); */
+/*     echo(&node); */
 /*     printf("\n"); */
 /*     free(s); */
 
@@ -75,7 +75,7 @@ int	ft_echo(char **args)
 /*     printf("===TEST 4===\n"); */
 /*     printf("EXPECTED:\n"); */
 /*     printf("ACTUAL:"); */
-/*     ft_echo(&node); */
+/*     echo(&node); */
 /*     printf("\n"); */
 /*     free(s); */
 /* } */

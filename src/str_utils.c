@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-size_t	ft_indexof(char *str, char c)
+size_t	indexof(char *str, char c)
 {
 	size_t	i;
 
@@ -59,7 +59,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (*cs1 - *cs2);
 }
 
-char *ft_artostr(char **ar)
+char *artostr(char **ar)
 {
 	char	*str;
 	char	*del;

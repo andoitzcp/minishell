@@ -29,9 +29,9 @@ int	**initfdarray(void)
 }
 
 // Queda pendiente de adaptar, pero va a ser necesario para despues
-void	ft_cleanup(t_md *md)
+void	cleanup(t_md *md)
 {
-	ft_freetree(md->tree);
+	freetree(md->tree);
 	free(md->fd[0]);
 	free(md->fd);
 	ft_free2parray(md->env);
@@ -39,27 +39,27 @@ void	ft_cleanup(t_md *md)
 	md = NULL;
 }
 
-void	ft_exitwithmallocerror(t_md *md)
+void	exitwithmallocerror(t_md *md)
 {
-	ft_cleanup(md);
+	cleanup(md);
 	exit(EXIT_FAILURE);
 }
 
-t_md	*ft_initmetadata(void)
+t_md	*initmetadata(void)
 {
 	t_md	*md;
 	extern char **environ;
 	
 	md = (t_md *)malloc(sizeof(t_md));
 	if (md == NULL)
-		ft_exitwithmallocerror(md);
-	md->env = ft_dup2parray(environ);
+		exitwithmallocerror(md);
+	md->env = ardup(environ);
 	md->tok = (t_token **)malloc(sizeof(t_token *));
 	if (md->tok == NULL)
-		ft_exitwithmallocerror(md);
+		exitwithmallocerror(md);
 	md->tree = (t_tree **)malloc(sizeof(t_tree *));
 	if (md->tree == NULL)
-		ft_exitwithmallocerror(md);
+		exitwithmallocerror(md);
 	md->fd = initfdarray();
 	md->prompt = NULL;
 	return (md);

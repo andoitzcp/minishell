@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-void	ft_exit(t_md *md)
+void	clean_exit(t_md *md)
 {
-	ft_cleanup(md);
+	cleanup(md);
 	exit(1);	
 }
 

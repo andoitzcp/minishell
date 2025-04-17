@@ -21,7 +21,7 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 		return (NULL);
 	node = (t_tree *)malloc(sizeof(t_tree));
 	if (node == NULL)
-		ft_exitwithmallocerror(md);
+		exitwithmallocerror(md);
 	node->tok = token;
 	if (is_redir(token))
 		node->type = TREE_REDIR;
@@ -33,7 +33,7 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 	}
 	*(md->tok) = token->right;
 	token->right = NULL;
-	node->args = ft_tokensto2parray(node->tok, md);
+	node->args = tokensto2parray(node->tok, md);
 	node->left = NULL;
 	node->right = NULL;
 	return (node);
@@ -61,7 +61,7 @@ void recompose_tree(t_md *md)
 				continue ;
 			}
 			if (node->left != NULL)
-				ft_freetree(node->left);
+				freetree(node->left);
 			node->left = p;
 			node->right = p->right->right;
 			p->right->right = NULL;

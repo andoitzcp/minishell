@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_cd(char **args)
+int	cd(char **args)
 {
 	char	*path;
 
@@ -44,71 +44,71 @@ int	ft_cd(char **args)
 // 
 // 	// Comprobacion sin argumentos
 // 	printf("--TEST 1--\n");
-// 	ft_cd(home);
-// 	ft_pwd(NULL);
-// 	ft_cd(NULL);
-// 	ft_pwd(NULL);
+// 	cd(home);
+// 	pwd(NULL);
+// 	cd(NULL);
+// 	pwd(NULL);
 // 
 // 	//Comprobacion con argumentos
 // 	printf("--TEST 2--\n");
-// 	ft_cd(home);
-// 	ft_pwd(NULL);
+// 	cd(home);
+// 	pwd(NULL);
 // 	args[0] = "cd";
-// 	ft_cd(args);
-// 	ft_pwd(NULL);
+// 	cd(args);
+// 	pwd(NULL);
 // 
 // 	printf("--TEST 3--\n");
-// 	ft_cd(home);
-// 	ft_pwd(NULL);
+// 	cd(home);
+// 	pwd(NULL);
 // 	args[0] = "cd";
 // 	args[1] = NULL;
-// 	ft_cd(args);
-// 	ft_pwd(NULL);
+// 	cd(args);
+// 	pwd(NULL);
 // 
 // 	printf("--TEST 4--\n");
-// 	ft_cd(home);
-// 	ft_pwd(NULL);
+// 	cd(home);
+// 	pwd(NULL);
 // 	args[0] = "cd";
 // 	args[1] = ".";
 // 	args[2] = NULL;
-// 	ft_cd(args);
-// 	ft_pwd(NULL);
+// 	cd(args);
+// 	pwd(NULL);
 // 
 // 	printf("--TEST 5--\n");
-// 	ft_cd(home);
-// 	ft_pwd(NULL);
+// 	cd(home);
+// 	pwd(NULL);
 // 	args[0] = "cd";
 // 	args[1] = "..";
 // 	args[2] = NULL;
-// 	ft_cd(args);
-// 	ft_pwd(NULL);
+// 	cd(args);
+// 	pwd(NULL);
 // 
 // 	printf("--TEST 6--\n");
-// 	ft_cd(home);
-// 	ft_pwd(NULL);
+// 	cd(home);
+// 	pwd(NULL);
 // 	args[0] = "cd";
 // 	args[1] = "/etc";
 // 	args[2] = NULL;
-// 	ft_cd(args);
-// 	ft_pwd(NULL);
+// 	cd(args);
+// 	pwd(NULL);
 // 
 // 	printf("--TEST 7--\n");
-// 	ft_cd(home);
-// 	ft_pwd(NULL);
+// 	cd(home);
+// 	pwd(NULL);
 // 	args[0] = "cd";
 // 	args[1] = "sadjhla";
 // 	args[2] = NULL;
-// 	ft_cd(args);
-// 	ft_pwd(NULL);
+// 	cd(args);
+// 	pwd(NULL);
 // 
 // 	printf("--TEST 8--\n");
-// 	ft_cd(home);
-// 	ft_pwd(NULL);
+// 	cd(home);
+// 	pwd(NULL);
 // 	args[0] = "cd";
 // 	args[1] = "/home";
 // 	args[2] = "sadjhla";
 // 	args[3] = NULL;
-// 	ft_cd(args);
-// 	ft_pwd(NULL);
+// 	cd(args);
+// 	pwd(NULL);
 // 
 // }
