@@ -6,7 +6,7 @@
 ### En caso de duda utilizar **bash** como referencia!
 
 - [ ] **1.** Mostrar una nueva entrada mientras espera el comando nuevo.
-- [ ] **2.** Tener una historia funcional.
+- [x] **2.** Tener una historia funcional.
 - [x] **3.** Buscar y ejecutar el ejecutable correcto (basado en la variable PATH o mediante el uso de rutas relativas o absolutas).
 - [x] **4.** Evita utilizar más de una variable global para indicar la recepción de una señal. (Prohibido utilizar estructuras tipo norm en global).
 - [ ] **5.** No interpretar comillas sin cerrar o caracteres especiales no especificados en el enunciado como `\` (barra invertida) o `;` (punto y coma).
@@ -18,14 +18,14 @@
 - - `<<` debe recibir un delimitador, después leer del input de la fuente actual hasta que una línea que contenga solo el delimitador aparezca. Sin embargo, no necesita actualizar el historial.
 - - `>>` debe redirigir el output en modo append.
 - [x] **9.** Implementar pipes.
-- [ ] **10.** Gestionar variables de entorno que deberan expandirse a sus valores.
-- [ ] **11.** Gestionar `$?`, que deberá expandirse al estado de salida del comando más reciente ejecutado en la pipeline.
+- [x] **10.** Gestionar variables de entorno que deberan expandirse a sus valores.
+- [x] **11.** Gestionar `$?`, que deberá expandirse al estado de salida del comando más reciente ejecutado en la pipeline.
 - [x] **12.** Gestionar `ctrl-C` `ctrl-D` `ctrl-\`, que deberán funcionar como en bash
 - [x] **13.** Cuando sea interactivo:
     - `ctrl-C` imprime una nueva entrada en una línea nueva.
     - `ctrl-D` termina la shell.
     - `ctrl-\` no hace nada.
-- [ ] **14.** Implementar los siguientes built-ins:
+- [x] **14.** Implementar los siguientes built-ins:
     - `echo` con la opcion `-n`.
     - `cd` solo con una ruta relativa o absoluta.
     - `pwd` sin opciones.
@@ -56,4 +56,49 @@
 ### Documentacion
 - [readline](https://web.mit.edu/gnu/doc/html/rlman_2.html)
 - [getcwd] (https://www.gnu.org/software/libc/manual/html_node/Working-Directory.html)
+
+## Estructura general del programa
+### Metadata
+Estructura de uso general en distintos puntos del programa
+```c
+typedef struct s_md
+{
+    struct s_token **tok;   // Lista de tokens
+    struct s_tree **tree;   // Lista de nodos
+    struct s_tree *nodeact; // Nodo actual
+    int **fd;               // Array de fd-s
+    char **env;             // Array de variables globales
+    int	status;             // 
+    int	exit_code;          // Codigo de retorno del ultimo comando
+    char *prompt;           // Prompt de la minishell
+} t_md;
+``` 
+
+### Main
+
+1 - Inicializacion de la estructura principal de datos y reserva de memoria correspondiente `initmetadata()`
+2 - Distincion entre modo interactivo o modo comando: 
+    - Cuando la shell se inicia sin argumentos entra en modo interactivo
+    - Sino, interpreta esos argumentos como un comando e intenta ejecutarlo
+    ```C
+    if (argc == 1)  // Comprobacion del nunmero de argumentos
+    {
+        // Modo interactivo 
+    }
+    else 
+    {
+        // Modo comando
+    }
+    ```
+2.1 - Modo interactivo:
+    - Se inicializa la gestion de señales `sig_init()`
+    - Se actualiza la variable del prompt y se lee el input del usuario
+    - Si no hay input (se ha presionado `Ctrl-d`) se cierra la shell.
+    - Si hay input:
+        - Se guarda en el historial
+        - Se tokeniza, se parsea y se reorganiza en funcion de las redirecciones
+        - Finalmente se ejecuta el comando
+2.2 - Modo comando:
+    - Se convierte la lista de argumentos en un string unico
+    - Se tokeniza, parsea y ejecuta como si se tratase de un comando en modo interactico
 
