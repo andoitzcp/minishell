@@ -76,8 +76,8 @@ typedef struct s_md
 
 ### Main
 
-1 - Inicializacion de la estructura principal de datos y reserva de memoria correspondiente `initmetadata()`
-2 - Distincion entre modo interactivo o modo comando: 
+1. Inicializacion de la estructura principal de datos y reserva de memoria correspondiente `initmetadata()`
+2. Distincion entre modo interactivo o modo comando: 
     - Cuando la shell se inicia sin argumentos entra en modo interactivo
     - Sino, interpreta esos argumentos como un comando e intenta ejecutarlo
     ```C
@@ -90,15 +90,15 @@ typedef struct s_md
         // Modo comando
     }
     ```
-2.1 - Modo interactivo:
+    2.1. Modo interactivo:
     - Se inicializa la gestion de señales `sig_init()`
     - Se actualiza la variable del prompt y se lee el input del usuario
     - Si no hay input (se ha presionado `Ctrl-d`) se cierra la shell.
     - Si hay input:
-        - Se guarda en el historial
-        - Se tokeniza, se parsea y se reorganiza en funcion de las redirecciones
-        - Finalmente se ejecuta el comando
-2.2 - Modo comando:
+    - Se guarda en el historial
+    - Se tokeniza, se parsea y se reorganiza en funcion de las redirecciones
+    - Finalmente se ejecuta el comando
+    2.2 - Modo comando:
     - Se convierte la lista de argumentos en un string unico
     - Se tokeniza, parsea y ejecuta como si se tratase de un comando en modo interactico
 
