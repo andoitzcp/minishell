@@ -90,15 +90,15 @@ typedef struct s_md
         // Modo comando
     }
     ```
-    2.1. Modo interactivo:
-    - Se inicializa la gestion de señales `sig_init()`
-    - Se actualiza la variable del prompt y se lee el input del usuario
-    - Si no hay input (se ha presionado `Ctrl-d`) se cierra la shell.
-    - Si hay input:
-    - Se guarda en el historial
-    - Se tokeniza, se parsea y se reorganiza en funcion de las redirecciones
-    - Finalmente se ejecuta el comando
-    2.2 - Modo comando:
-    - Se convierte la lista de argumentos en un string unico
-    - Se tokeniza, parsea y ejecuta como si se tratase de un comando en modo interactico
+2.1. Modo interactivo:
+    Se inicializa la gestion de señales `sig_init()`\n
+    Se actualiza la variable del prompt y se lee el input del usuario\n
+    Si no hay input (se ha presionado `Ctrl-d`) se cierra la shell.\n
+    Si hay input:\n
+        \tSe guarda en el historial\n
+        \tSe tokeniza, se parsea y se reorganiza en funcion de las redirecciones\n
+        \tFinalmente se ejecuta el comando\n
+2.2 - Modo comando:
+    \tSe convierte la lista de argumentos en un string unico\n
+    \tSe tokeniza, parsea y ejecuta como si se tratase de un comando en modo interactico\n
 
